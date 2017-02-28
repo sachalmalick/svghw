@@ -1,0 +1,67 @@
+<html>
+<head>
+    <title>
+SVG DEMO
+    </title>
+</head>
+    
+<body>
+    <svg id = "vimage" height = "500" width = "500" style = "border: 1px solid;" xmlns = "http://www.w3.org/2000/svg">
+        <!--<circle cx = "250" cy = "250" r = "100" fill = "#FF00FF" stroke = "blue"></circle> -->
+    </svg>
+    
+    <button type="button" onclick = "clearAll()">clear</button>
+    
+</body>
+    
+
+<script>
+    var svg = document.getElementById("vimage");
+    var e = window.event
+    var lastx,lasty;
+    svg.addEventListener("mousedown", clicked);
+    function clicked (e) {
+        createCicle(e.clientX,e.clientY);
+        console.log("was clicked x is :" + e.clientX);
+        if(lastx && lasty) {
+            createLine(e.clientX,e.clientY);
+        }
+        lastx = e.clientX;
+        lasty = e.clientY;
+        //console.log()
+    }
+    
+    function createLine(x,y) {
+        var d = document.createElementNS("http://www.w3.org/2000/svg","line");
+        d.setAttribute("x1",lastx);
+        d.setAttribute("y1",lasty);
+        d.setAttribute("x2",x);
+        d.setAttribute("y2",y);
+        d.setAttribute("stroke","blue");
+        svg.appendChild(d);
+    }
+    function createCicle(x,y) {
+        var d = document.createElementNS("http://www.w3.org/2000/svg","circle");
+        console.log(x);
+        console.log(y);
+        d.setAttribute("cx",x);
+        d.setAttribute("cy",y);
+        d.setAttribute("r",50);
+        d.setAttribute("fill","#FF00FF");
+        d.setAttribute("stroke","blue");
+        svg.appendChild(d);
+    }
+    function removeChild(parentNode, childNode) {
+    }
+    
+    function clearAll() {
+        var allElements = svg.childNodes;
+        while (allElements.length > 0) {
+            svg.removeChild(allElements[0]);
+            }
+        lastx = false;
+        lasty = false;
+    }
+  
+</script>
+</html>
